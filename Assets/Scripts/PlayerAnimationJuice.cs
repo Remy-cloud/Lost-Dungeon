@@ -33,6 +33,24 @@ public class PlayerAnimationJuice : MonoBehaviour
         modelBaseScale = modelTransform.localScale;
     }
 
+    void OnEnable()
+    {
+        Health.OnDeath += HandleDeath;
+    }
+
+    void OnDisable()
+    {
+        Health.OnDeath -= HandleDeath;
+    }
+
+    private void HandleDeath(Health health)
+    {
+        if (health.gameObject == this.gameObject)
+        {
+            PlayDeathJuice();
+        }
+    }
+
     void Update()
     {
         if (isDead) return;

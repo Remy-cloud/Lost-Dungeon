@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [Header("Target")]
-    [SerializeField] private Transform target; // the player
+    [SerializeField] private Transform target;
 
     [Header("Third-Person Offset")]
     [SerializeField] private float distanceBehind = 5f;
@@ -13,20 +13,29 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float positionSmoothSpeed = 8f;
     [SerializeField] private float rotationSmoothSpeed = 8f;
 
+    [Header("Collision Settings")]
+    [SerializeField] private LayerMask collisionMask;
+    [SerializeField] private float collisionBuffer = 0.3f;
+
     void LateUpdate()
     {
         if (target == null) return;
 
-        // Position camera behind the player, based on player's current facing direction
-        Vector3 desiredPosition = target.position
-                                   - target.forward * distanceBehind
-                                   + Vector3.up * height;
+        Vector3 pivotPoint = target.position + Vector3.up * height;
+        Vector3 desiredCameraPos = pivotPoint - target.forward * distanceBehind;
 
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, positionSmoothSpeed * Time.deltaTime);
+        // Check if anything blocks the line from pivot to desired camera position
+        float finalDistance = distanceBehind;
+        if (Physics.Raycast(pivotPoint, -target.forward, out RaycastHit hit, distanceBehind, collisionMask))
+        {
+            finalDistance = hit.distance - collisionBuffer;
+        }
 
-        // Look toward a point slightly above the player (so it's not staring at their feet)
-        Vector3 lookTarget = target.position + Vector3.up * 1.5f;
-        Quaternion desiredRotation = Quaternion.LookRotation(lookTarget - transform.position);
+        Vector3 finalPosition = pivotPoint - target.forward * finalDistance;
+
+        transform.position = Vector3.Lerp(transform.position, finalPosition, positionSmoothSpeed * Time.deltaTime);
+
+        Quaternion desiredRotation = Quaternion.LookRotation(pivotPoint - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSmoothSpeed * Time.deltaTime);
     }
 }

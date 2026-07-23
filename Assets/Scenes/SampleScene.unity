@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &213335593 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7570456002536969217, guid: 17d40d85eb20c47d3bb69f92f0d34cb8, type: 3}
+  m_PrefabInstance: {fileID: 458663266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +483,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 17d40d85eb20c47d3bb69f92f0d34cb8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2080690197}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 17d40d85eb20c47d3bb69f92f0d34cb8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2080690198}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 17d40d85eb20c47d3bb69f92f0d34cb8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2080690199}
   m_SourcePrefab: {fileID: 100100000, guid: 17d40d85eb20c47d3bb69f92f0d34cb8, type: 3}
 --- !u!1 &832575517
 GameObject:
@@ -670,6 +681,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 10
   gravity: -9.81
+  jumpHeight: 1.5
   cameraTransform: {fileID: 330585546}
 --- !u!143 &2080690195
 CharacterController:
@@ -713,12 +725,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a92ddddfd63c48028643863657945b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationJuice
-  modelTransform: {fileID: 0}
+  modelTransform: {fileID: 213335593}
   bobFrequency: 8
   bobHeight: 0.08
   attackScalePunch: 1.2
   attackDuration: 0.15
   deathTipDuration: 0.5
+--- !u!114 &2080690198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080690192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c05b36d194eb4736959dc433993a25b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+  attackDamage: 20
+  attackRange: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &2080690199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080690192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469b1263045a0450f82dc77d5fbaec7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &2145052545
 GameObject:
   m_ObjectHideFlags: 0
