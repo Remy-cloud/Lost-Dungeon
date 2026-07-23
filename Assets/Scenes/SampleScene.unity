@@ -276,9 +276,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 2080690196}
   distanceBehind: 3
-  height: 3
+  height: 2
   positionSmoothSpeed: 8
   rotationSmoothSpeed: 8
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  collisionBuffer: 0.3
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,8 +644,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ac8e7eb6adac41189b2d28ff1aa9fc0, type: 3}
   m_PrefabInstance: {fileID: 1094229309}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1110762230
-BoxCollider:
+--- !u!64 &1110762230
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -658,9 +662,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 17.042244, y: 14.285904, z: 17.1767}
-  m_Center: {x: 0, y: 7.142952, z: 0}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6480325721453257794, guid: 5ac8e7eb6adac41189b2d28ff1aa9fc0, type: 3}
 --- !u!1 &2080690192 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 17d40d85eb20c47d3bb69f92f0d34cb8, type: 3}

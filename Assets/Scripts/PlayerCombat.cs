@@ -28,6 +28,8 @@ public class PlayerCombat : MonoBehaviour
 
         Collider[] hits = Physics.OverlapSphere(transform.position + transform.forward, attackRange, enemyLayer);
 
+        Debug.Log($"Attack triggered — hit {hits.Length} target(s)");
+
         foreach (Collider hit in hits)
         {
             IDamageable damageable = hit.GetComponent<IDamageable>();
