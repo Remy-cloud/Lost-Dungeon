@@ -27,7 +27,7 @@ public class SaveManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(CurrentData, true);
         File.WriteAllText(SavePath, json);
-        Debug.Log($"Game saved to {SavePath}");
+        Debug.Log($"[SaveManager] Game saved → {SavePath}");
     }
 
     public void Load()
@@ -36,10 +36,12 @@ public class SaveManager : MonoBehaviour
         {
             string json = File.ReadAllText(SavePath);
             CurrentData = JsonUtility.FromJson<PlayerSaveData>(json);
+            Debug.Log("[SaveManager] Save file loaded successfully");
         }
         else
         {
             CurrentData = new PlayerSaveData(); // fresh save
+            Debug.Log("[SaveManager] No save file found — created fresh data");
         }
     }
 
@@ -48,10 +50,13 @@ public class SaveManager : MonoBehaviour
         if (!CurrentData.completedLevels.Contains(levelIndex))
             CurrentData.completedLevels.Add(levelIndex);
 
+        Debug.Log($"[SaveManager] Level {levelIndex} marked complete");
+
         int nextLevel = levelIndex + 1;
         if (nextLevel > CurrentData.highestUnlockedLevel)
         {
             CurrentData.highestUnlockedLevel = nextLevel;
+            Debug.Log($"[SaveManager] Level {nextLevel} unlocked!");
             OnLevelUnlocked?.Invoke(nextLevel);
         }
 

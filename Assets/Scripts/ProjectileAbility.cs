@@ -13,6 +13,8 @@ public class ProjectileAbility : MonoBehaviour, IAbility
         Vector3 spawnPos = firePoint != null ? firePoint.position : user.position + user.forward;
         ObjectPool.Instance.SpawnFromPool(projectilePoolTag, spawnPos, user.rotation);
 
+        GameManager.Instance?.NotifyAbilityActivated(projectilePoolTag);
+
         Debug.Log($"{projectilePoolTag} ability fired!");
     }
 }

@@ -64,6 +64,9 @@ public class EnemyStateMachine : MonoBehaviour
         if (deadHealth == health)
         {
             currentState = EnemyState.Dead;
+
+            GameManager.Instance?.NotifyEnemyDefeated();
+
             // TODO: disable visuals/collider, maybe trigger level-unlock reward here
             gameObject.SetActive(false);
         }

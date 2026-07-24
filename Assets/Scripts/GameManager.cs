@@ -25,15 +25,31 @@ public class GameManager : MonoBehaviour
     public void SetState(GameState newState)
     {
         CurrentState = newState;
+        Debug.Log($"[GameManager] State changed → {newState}");
         OnGameStateChanged?.Invoke(newState);
     }
 
     public void SetCurrentLevel(int levelIndex)
     {
         CurrentLevelIndex = levelIndex;
+        Debug.Log($"[GameManager] Current level set → {levelIndex}");
     }
 
-    public void NotifyEnemyDefeated() => OnEnemyDefeated?.Invoke();
-    public void NotifyItemCollected(string itemId) => OnItemCollected?.Invoke(itemId);
-    public void NotifyAbilityActivated(string abilityName) => OnAbilityActivated?.Invoke(abilityName);
+    public void NotifyEnemyDefeated()
+    {
+        Debug.Log("[GameManager] Enemy defeated event fired");
+        OnEnemyDefeated?.Invoke();
+    }
+
+    public void NotifyItemCollected(string itemId)
+    {
+        Debug.Log($"[GameManager] Item collected → {itemId}");
+        OnItemCollected?.Invoke(itemId);
+    }
+
+    public void NotifyAbilityActivated(string abilityName)
+    {
+        Debug.Log($"[GameManager] Ability activated → {abilityName}");
+        OnAbilityActivated?.Invoke(abilityName);
+    }
 }
