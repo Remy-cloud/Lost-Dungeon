@@ -47,6 +47,9 @@ public class Health : MonoBehaviour, IDamageable
         bool isCriticalHit = UnityEngine.Random.value < criticalHitChance;
         float finalDamage = isCriticalHit ? amount * criticalHitMultiplier : amount;
 
+        if (isCriticalHit)
+        Debug.Log($"[Health] CRITICAL HIT on {gameObject.name}! {finalDamage} damage");
+
         currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
