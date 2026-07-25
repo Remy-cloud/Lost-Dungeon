@@ -36,4 +36,5 @@ public class StaircaseInteractable : MonoBehaviour, IInteractable
         SaveManager.Instance.CompleteLevel(levelJustCompleted);
         GameManager.Instance.SetCurrentLevel(levelJustCompleted + 1);
     }
+
 }
