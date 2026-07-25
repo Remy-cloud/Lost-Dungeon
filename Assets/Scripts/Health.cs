@@ -17,6 +17,8 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private float criticalHitChance = 0.2f;
     [SerializeField] private float criticalHitMultiplier = 2f;
 
+    [HideInInspector] public float incomingDamageMultiplier = 1f; // used by defensive enemies (e.g. Ice Guardian) to reduce incoming damage while "guarding"
+
     public static event Action<Health, float, float> OnHealthChanged; // (who, current, max)
     public static event Action<Health> OnDeath;
 
@@ -46,6 +48,8 @@ public class Health : MonoBehaviour, IDamageable
         // Crit chance algorithm: roll random number, double damage if it lands under the threshold
         bool isCriticalHit = UnityEngine.Random.value < criticalHitChance;
         float finalDamage = isCriticalHit ? amount * criticalHitMultiplier : amount;
+
+        finalDamage *= incomingDamageMultiplier; // reduced while a defensive enemy is "guarding"
 
         if (isCriticalHit)
         Debug.Log($"[Health] CRITICAL HIT on {gameObject.name}! {finalDamage} damage");
