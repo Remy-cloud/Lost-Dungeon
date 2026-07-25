@@ -13,6 +13,10 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private Color flashColor = Color.red;
     [SerializeField] private float flashDuration = 0.15f;
 
+    [Header("Critical Hit Settings")]
+    [SerializeField] private float criticalHitChance = 0.2f;
+    [SerializeField] private float criticalHitMultiplier = 2f;
+
     public static event Action<Health, float, float> OnHealthChanged; // (who, current, max)
     public static event Action<Health> OnDeath;
 
@@ -39,7 +43,11 @@ public class Health : MonoBehaviour, IDamageable
     {
         if (IsDead) return;
 
-        currentHealth -= amount;
+        // Crit chance algorithm: roll random number, double damage if it lands under the threshold
+        bool isCriticalHit = UnityEngine.Random.value < criticalHitChance;
+        float finalDamage = isCriticalHit ? amount * criticalHitMultiplier : amount;
+
+        currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
         OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
