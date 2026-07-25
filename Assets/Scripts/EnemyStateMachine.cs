@@ -9,6 +9,9 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private float detectionRange = 12f;
     [SerializeField] private Transform player; // assign in Inspector, or auto-find by tag
 
+    [Header("Level Progression")]
+    [SerializeField] private LevelTransition levelTransitionOnDeath; // optional, assign only on enemies that trigger a transition
+
     private EnemyState currentState = EnemyState.Idle;
     private IEnemyBehaviour behaviour;
     private Health health;
@@ -66,6 +69,7 @@ public class EnemyStateMachine : MonoBehaviour
             currentState = EnemyState.Dead;
 
             GameManager.Instance?.NotifyEnemyDefeated();
+            levelTransitionOnDeath?.TriggerTransition();
 
             // TODO: disable visuals/collider, maybe trigger level-unlock reward here
             gameObject.SetActive(false);

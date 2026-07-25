@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 3040957701069622801}
   - component: {fileID: 6473834260221354419}
   - component: {fileID: 39553041827696014}
-  - component: {fileID: -7329803816221527722}
-  m_Layer: 6
-  m_Name: Bolt
-  m_TagString: LightningBolt
+  - component: {fileID: -13383837528394884}
+  m_Layer: 7
+  m_Name: Enemyfireball
+  m_TagString: EnemyFireball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 3418222682277006846}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -37.455658, y: 2.135, z: -1.5251707}
-  m_LocalScale: {x: 0.78732, y: 0.08224842, z: 0.1375936}
+  m_LocalPosition: {x: -55.5, y: 1.5646, z: -3.48}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f49c59f6bdcbb47bab30235dd8e1d4c6, type: 2}
+  - {fileID: 2100000, guid: 7ddc5bb2132ff43aca1a3fdc46207dba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,13 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaade0bf9d5fa4d45ab0ab4fe13c1f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireballProjectile
-  speed: 15
-  damage: 25
+  speed: 30
+  damage: 4
   lifetime: 4
   targetLayer:
     serializedVersion: 2
-    m_Bits: 64
---- !u!54 &-7329803816221527722
+    m_Bits: 128
+--- !u!54 &-13383837528394884
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
