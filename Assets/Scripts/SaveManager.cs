@@ -50,6 +50,8 @@ public class SaveManager : MonoBehaviour
         if (!CurrentData.completedLevels.Contains(levelIndex))
             CurrentData.completedLevels.Add(levelIndex);
 
+        CurrentData.completedLevels.Sort(); // Sorting algorithm: keeps completed levels in ascending order
+
         Debug.Log($"[SaveManager] Level {levelIndex} marked complete");
 
         int nextLevel = levelIndex + 1;
