@@ -10,7 +10,8 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private Transform player; // assign in Inspector, or auto-find by tag
 
     [Header("Level Progression")]
-    [SerializeField] private LevelTransition levelTransitionOnDeath; // optional, assign only on enemies that trigger a transition
+    [SerializeField] private LevelTransition levelTransitionOnDeath; // optional, assign only on enemies that trigger a fade-transition
+    [SerializeField] private StaircaseInteractable staircaseToUnlock; // optional, assign only on enemies that unlock a staircase/ladder
 
     private EnemyState currentState = EnemyState.Idle;
     private IEnemyBehaviour behaviour;
@@ -70,8 +71,9 @@ public class EnemyStateMachine : MonoBehaviour
 
             GameManager.Instance?.NotifyEnemyDefeated();
             levelTransitionOnDeath?.TriggerTransition();
+            staircaseToUnlock?.Unlock();
 
-            // TODO: disable visuals/collider, maybe trigger level-unlock reward here
+            // TODO: disable visuals/collider
             gameObject.SetActive(false);
         }
     }
