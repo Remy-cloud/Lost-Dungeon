@@ -11,7 +11,7 @@ public class IceGuardianBehaviour : MonoBehaviour, IEnemyBehaviour
     [Header("Defensive Cycle")]
     [SerializeField] private float guardDuration = 4f;
     [SerializeField] private float vulnerableDuration = 1.5f;
-    [SerializeField] private float guardDamageMultiplier = 0.1f; // takes only 10% damage while guarding
+    [SerializeField] private float guardDamageMultiplier = 0.1f;
 
     public float AttackRange => attackRange;
 
@@ -29,7 +29,6 @@ public class IceGuardianBehaviour : MonoBehaviour, IEnemyBehaviour
 
     void Update()
     {
-        // Defensive cycle: alternate between Guarding and Vulnerable, independent of the Chase/Attack state machine
         cycleTimer -= Time.deltaTime;
         if (cycleTimer <= 0f)
         {
@@ -43,18 +42,18 @@ public class IceGuardianBehaviour : MonoBehaviour, IEnemyBehaviour
 
     public void Chase(Transform target)
     {
-        // Guardian holds its position, just faces the player — same pattern as the dog
         Vector3 lookPos = new Vector3(target.position.x, transform.position.y, target.position.z);
         transform.LookAt(lookPos);
     }
 
     public void Attack(Transform target)
     {
-        Chase(target); // keep facing the player while attacking
+        Chase(target);
 
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0f)
         {
+            Debug.Log("[IceGuardian] FIRING NOW");
             FireIceShard(target);
             cooldownTimer = fireCooldown;
         }
@@ -67,6 +66,7 @@ public class IceGuardianBehaviour : MonoBehaviour, IEnemyBehaviour
         Vector3 direction = (aimTarget - spawnPos).normalized;
         Quaternion aimRotation = Quaternion.LookRotation(direction);
 
-        ObjectPool.Instance.SpawnFromPool(projectilePoolTag, spawnPos, aimRotation);
+        GameObject spawned = ObjectPool.Instance.SpawnFromPool(projectilePoolTag, spawnPos, aimRotation);
+        Debug.Log(spawned != null ? "[IceGuardian] SUCCESS - projectile spawned" : "[IceGuardian] FAILED - pool returned null");
     }
 }
