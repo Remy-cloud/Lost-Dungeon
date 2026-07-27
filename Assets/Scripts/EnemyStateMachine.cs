@@ -13,6 +13,7 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private LevelTransition levelTransitionOnDeath; // optional, assign only on enemies that trigger a fade-transition
     [SerializeField] private StaircaseInteractable staircaseToUnlock; // optional, assign only on enemies that unlock a staircase/ladder
     [SerializeField] private GameObject collectibleToReveal; // optional, assign only on enemies that reveal a collectible on death
+    [SerializeField] private int levelToCompleteOnDeath = 0; // 0 = don't trigger; otherwise directly marks this level complete on death
 
     private EnemyState currentState = EnemyState.Idle;
     private IEnemyBehaviour behaviour;
@@ -74,6 +75,12 @@ public class EnemyStateMachine : MonoBehaviour
             levelTransitionOnDeath?.TriggerTransition();
             staircaseToUnlock?.Unlock();
             if (collectibleToReveal != null) collectibleToReveal.SetActive(true);
+
+            if (levelToCompleteOnDeath > 0)
+            {
+                SaveManager.Instance.CompleteLevel(levelToCompleteOnDeath);
+                Debug.Log($"[Level {levelToCompleteOnDeath}] Complete! Explore the dungeon to find your way to the Boss...");
+            }
 
             // TODO: disable visuals/collider
             gameObject.SetActive(false);
