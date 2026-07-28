@@ -79,7 +79,15 @@ public class EnemyStateMachine : MonoBehaviour
             if (levelToCompleteOnDeath > 0)
             {
                 SaveManager.Instance.CompleteLevel(levelToCompleteOnDeath);
-                Debug.Log($"[Level {levelToCompleteOnDeath}] Complete! Explore the dungeon to find your way to the Boss...");
+
+                if (levelToCompleteOnDeath == 5)
+                {
+                    Debug.Log("[GAME COMPLETE] BOSS DEFEATED — Chronicles of the Lost Dungeon: COMPLETE!");
+                }
+                else
+                {
+                    Debug.Log($"[Level {levelToCompleteOnDeath}] Complete! Explore the dungeon to find your way to the Boss...");
+                }
             }
 
             // TODO: disable visuals/collider
