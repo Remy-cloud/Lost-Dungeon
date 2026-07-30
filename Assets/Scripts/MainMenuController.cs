@@ -1,25 +1,29 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    [SerializeField] private GameObject mainMenuPanel; // your original MenuPanel
+    [SerializeField] private GameObject levelSelectPanel;
+    [SerializeField] private LevelSelectUI levelSelectUI;
+
     public void OnStartGame()
     {
         Debug.Log("[MainMenu] Start Game pressed");
-        // TODO: load gameplay scene from Level 1
+        levelSelectUI.OnLevelButtonClicked(1); // always starts at Level 1
     }
 
     public void OnContinue()
     {
         int lastLevel = SaveManager.Instance.CurrentData.highestUnlockedLevel;
         Debug.Log($"[MainMenu] Continue pressed — Level {lastLevel}");
-        // TODO: load gameplay scene at last unlocked level
+        levelSelectUI.OnLevelButtonClicked(lastLevel);
     }
 
     public void OnLevelSelection()
     {
         Debug.Log("[MainMenu] Level Selection pressed");
-        // TODO: show Level Select panel
+        mainMenuPanel.SetActive(false);
+        levelSelectPanel.SetActive(true);
     }
 
     public void OnSettings()
