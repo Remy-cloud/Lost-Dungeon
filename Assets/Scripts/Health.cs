@@ -9,7 +9,7 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private float currentHealth;
 
     [Header("Hit Flash Settings")]
-    [SerializeField] private Renderer[] renderersToFlash; // leave empty to auto-find
+    [SerializeField] private Renderer[] renderersToFlash = new Renderer[0]; // leave empty to auto-find
     [SerializeField] private Color flashColor = Color.red;
     [SerializeField] private float flashDuration = 0.15f;
 
