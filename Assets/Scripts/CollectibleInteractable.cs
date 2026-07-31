@@ -12,13 +12,15 @@ public class CollectibleInteractable : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
+        Debug.Log("[COLLECTIBLE-HEALTHBOOST] Interact() triggered on the health orb");
+
         Health playerHealth = interactor.GetComponent<Health>();
         if (playerHealth != null)
         {
             playerHealth.Heal(healAmount);
         }
 
-        Debug.Log("[Collectible] Health boost collected! Player healed.");
+        Debug.Log("[COLLECTIBLE-HEALTHBOOST] Health boost collected! Player healed.");
 
         GameManager.Instance?.NotifyItemCollected("HealthBoost");
         SaveManager.Instance.CompleteLevel(levelJustCompleted);
