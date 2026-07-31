@@ -132,5 +132,11 @@ public class PlayerAnimationJuice : MonoBehaviour
         }
     }
 
+    public void ResetAfterRevive()
+    {
+        isDead = false;
+        modelTransform.rotation = Quaternion.identity;
+    }
+
     public bool IsDead => isDead;
 }
