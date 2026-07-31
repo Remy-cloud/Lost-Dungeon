@@ -92,6 +92,13 @@ public class Health : MonoBehaviour, IDamageable
         OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
     }
 
+    public void Revive()
+    {
+        IsDead = false;
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(this, currentHealth, maxHealth);
+    }
+
     private void Die()
     {
         IsDead = true;
