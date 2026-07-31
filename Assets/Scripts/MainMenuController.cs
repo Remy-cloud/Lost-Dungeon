@@ -5,6 +5,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel; // your original MenuPanel
     [SerializeField] private GameObject levelSelectPanel;
     [SerializeField] private LevelSelectUI levelSelectUI;
+    [SerializeField] private GameObject settingsPanel;
 
     public void OnStartGame()
     {
@@ -29,7 +30,8 @@ public class MainMenuController : MonoBehaviour
     public void OnSettings()
     {
         Debug.Log("[MainMenu] Settings pressed");
-        // TODO: show Settings panel
+        mainMenuPanel.SetActive(false);
+        settingsPanel.SetActive(true);
     }
 
     public void OnExit()

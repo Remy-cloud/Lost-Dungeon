@@ -1,11 +1,9 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private KeyCode interactKey = KeyCode.F;
-
-    private List<IInteractable> nearbyInteractables = new List<IInteractable>();
+    [SerializeField] private float interactRadius = 2.5f;
 
     void Update()
     {
@@ -17,35 +15,32 @@ public class PlayerInteraction : MonoBehaviour
 
     private void TryInteract()
     {
-        foreach (var interactable in nearbyInteractables)
+        Collider[] nearby = Physics.OverlapSphere(transform.position, interactRadius);
+
+        IInteractable closest = null;
+        float closestDist = Mathf.Infinity;
+
+        foreach (Collider col in nearby)
         {
-            if (interactable != null && interactable.CanInteract)
+            IInteractable interactable = col.GetComponent<IInteractable>();
+            if (interactable == null || !interactable.CanInteract) continue;
+
+            float dist = Vector3.Distance(transform.position, col.transform.position);
+            if (dist < closestDist)
             {
-                Debug.Log("[PlayerInteraction] Interacting with nearby object");
-                interactable.Interact(gameObject);
-                return; // only interact with the first valid one found
+                closestDist = dist;
+                closest = interactable;
             }
         }
 
-        Debug.Log("[PlayerInteraction] Nothing to interact with nearby");
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        IInteractable interactable = other.GetComponent<IInteractable>();
-        if (interactable != null && !nearbyInteractables.Contains(interactable))
+        if (closest != null)
         {
-            nearbyInteractables.Add(interactable);
-            Debug.Log($"[PlayerInteraction] In range of: {other.gameObject.name}");
+            Debug.Log("[PlayerInteraction] Interacting with nearby object");
+            closest.Interact(gameObject);
         }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        IInteractable interactable = other.GetComponent<IInteractable>();
-        if (interactable != null)
+        else
         {
-            nearbyInteractables.Remove(interactable);
+            Debug.Log("[PlayerInteraction] Nothing to interact with nearby");
         }
     }
 }

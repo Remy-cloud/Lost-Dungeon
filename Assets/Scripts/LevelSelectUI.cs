@@ -54,6 +54,17 @@ public class LevelSelectUI : MonoBehaviour
 
         GameManager.Instance.SetCurrentLevel(safeIndex);
 
+        // Revive the player if they were dead (handles Continue-after-death, Start Game, or any level jump)
+        Health playerHealth = playerTransform.GetComponent<Health>();
+        if (playerHealth != null && playerHealth.IsDead)
+        {
+            playerHealth.Revive();
+            playerTransform.GetComponent<PlayerAnimationJuice>().ResetAfterRevive();
+            playerTransform.GetComponent<PlayerController>().enabled = true;
+            playerTransform.GetComponent<PlayerCombat>().enabled = true;
+            playerTransform.GetComponent<AbilityController>().enabled = true;
+        }
+
         gameObject.SetActive(false); // hide Level Select panel
         menuVisibility.HideMenu(); // hide menu canvas entirely, unpause
     }

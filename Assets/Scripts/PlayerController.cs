@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     [Header("Camera Reference")]
     [SerializeField] private Transform cameraTransform;
 
+    [Header("Mobile Input")]
+    [SerializeField] private MobileJoystick mobileJoystick; // only used on Android/iOS builds
+
     private CharacterController controller;
     private Vector3 velocity;
 
@@ -51,8 +54,15 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 GetMovementDirection()
     {
+#if UNITY_ANDROID || UNITY_IOS
+        // Mobile: read from the on-screen virtual joystick
+        float horizontal = mobileJoystick != null ? mobileJoystick.Horizontal : 0f;
+        float vertical = mobileJoystick != null ? mobileJoystick.Vertical : 0f;
+#else
+        // PC / WebGL: standard keyboard input
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+#endif
 
         Vector3 inputDir = new Vector3(horizontal, 0f, vertical).normalized;
 
